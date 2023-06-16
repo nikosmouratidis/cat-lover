@@ -14,6 +14,7 @@ export const useStyles = createUseStyles({
   },
   breedDescription: {
     lineHeight: '20px',
-    marginBottom: 10
-  }
+    marginBottom: 10,
+    textAlign: 'start',
+  },
 })

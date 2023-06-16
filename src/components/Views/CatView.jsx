@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom'
 import { useStyles } from './CatView.styles'
 import useFetch from '../../hooks/useFetch'
 import CatImage from '../common/CatImage'
+import FavouriteButton from '../FavouriteButton'
 
 const CatView = () => {
   const { id } = useParams()
@@ -23,6 +24,7 @@ const CatView = () => {
   return (
     <div className={classes.catView}>
       <CatImage cat={cat} />
+      <FavouriteButton catId={cat.id}/>
       {breeds.map(breed => (
         <div key={`${breed.id}`}>
           <div className={classes.breedName}> Breed: {breed.name}</div>

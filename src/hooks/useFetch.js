@@ -29,16 +29,16 @@ const useFetch = (url) => {
       if (err.name === 'AbortError') {
         console.log('fetch aborted')
       } else {
-        setIsPending(false);
-        setError(err.message);
+        setIsPending(false)
+        setError(err.message)
       }
     })
 
     // abort the fetch
-    return () => abortCont.abort();
+    return () => abortCont.abort()
   }, [url])
 
-  return { data, isPending, error };
+  return { data, isPending, error }
 }
 
 export default useFetch
