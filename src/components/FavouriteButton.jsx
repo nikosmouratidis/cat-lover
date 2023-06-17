@@ -1,6 +1,7 @@
 import { useState, useEffect, memo } from 'react'
 
 import { useStyles } from './FavouriteButton.styles'
+import { addFavouriteAPI, deleteFavouriteAPI, getFavourites } from '../util/api'
 
 const FavouriteButton = ({ catId }) => {
   const [favourite, setFavourite] = useState(null)
@@ -10,65 +11,50 @@ const FavouriteButton = ({ catId }) => {
   const classes = useStyles()
 
   useEffect(() => {
-    const abortCont = new AbortController()
+    const abortGetFavourites = new AbortController()
 
-    fetch('https://api.thecatapi.com/v1/favourites', {
-      signal: abortCont.signal,
-      headers: {
-        'x-api-key': 'live_c5h73a38fsKfnVc75LzSvHy5N8NtAwbJ9v1f68cLbUKhmtnYBIRFhWT8dfkVh8gy'
-      }
-    })
-    .then(res => {
-      if (!res.ok) { // error coming back from server
-        throw Error('Could not fetch the data for that resource')
-      }
-      return res.json()
-    })
-    .then(data => {
-      setIsPending(false)
-      setError(null)
-
-      const favourite = data.find(favourite => favourite.image_id === catId)
-      favourite && setFavourite(favourite)
-    })
-    .catch(err => {
-      if (err.name === 'AbortError') {
-        console.log('fetch aborted')
+    const getAsyncFavourites = async abortGetFavourites => {
+      const response = await getFavourites(abortGetFavourites)
+      if (response instanceof Error) {
+        // When component unmounts before the request completes
+        if (response.name === 'AbortError') {
+          return null
+        }
+        setError(response.message)
       } else {
-        setIsPending(false)
-        setError(err.message)
+        const favourite = response.find(favourite => favourite.image_id === catId)
+        favourite && setFavourite(favourite)
       }
-    })
+      setIsPending(false)
+    }
+    getAsyncFavourites(abortGetFavourites)
 
-    // abort the fetch
-    return () => abortCont.abort()
+    // abort the fetch request on unmount
+    return () => abortGetFavourites.abort()
   }, [catId])
 
-  const handleFavourite = (e) => {
-    // e.preventDefault()
+  const handleFavourite = async () => {
     setIsPending(true)
     if (favourite) {
-      fetch(`https://api.thecatapi.com/v1/favourites/${favourite.id}`, {
-        method: 'DELETE',
-        headers: {
-          'x-api-key': 'live_c5h73a38fsKfnVc75LzSvHy5N8NtAwbJ9v1f68cLbUKhmtnYBIRFhWT8dfkVh8gy'
-        },
-      }).then(res => {
+      const response = await deleteFavouriteAPI(favourite.id)
+
+      if (response instanceof Error) {
+        setError(response.message)
+      } else if (response.message === 'SUCCESS') {
         setFavourite(null)
-      })
+      } else {
+        setError(new Error('Service could not delete from favourite'))
+      }
     } else {
-      fetch(`https://api.thecatapi.com/v1/favourites`, {
-        method: 'POST',
-        headers: {
-          "Content-Type": "application/json",
-          'x-api-key': 'live_c5h73a38fsKfnVc75LzSvHy5N8NtAwbJ9v1f68cLbUKhmtnYBIRFhWT8dfkVh8gy'
-        },
-        body: JSON.stringify({ image_id: catId})
-      })
-      .then(res => {
-        return res.json()
-      })
-      .then(data => setFavourite(data))
+        const response = await addFavouriteAPI(catId)
+
+        if (response instanceof Error) {
+          setError(response.message)
+        } else if (response.message === 'SUCCESS') {
+          setFavourite(response)
+        } else {
+          setError(new Error('Service could not add to favourite'))
+        }
     }
     setIsPending(false)
    }
@@ -87,7 +73,7 @@ const FavouriteButton = ({ catId }) => {
     <button
         className={classes.favouriteButton}
         onClick={handleFavourite}
-        disabled={isPending }
+        disabled={isPending}
       >
         { favButtonMsg }
       </button>

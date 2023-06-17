@@ -6,15 +6,17 @@ export const useStyles = createUseStyles({
     width: '50%',
     margin: 'auto',
   },
-  breedName: {
+  breedDetails: {
+    display: 'flex',
+    justifyContent: 'center',
+  },
+  breedHeader: {
     color: '#f1356d',
-    textDecoration: 'underline',
     fontSize: 25,
-    marginBottom: 5
+    marginRight: 5
   },
-  breedDescription: {
-    lineHeight: '20px',
-    marginBottom: 10,
-    textAlign: 'start',
-  },
+  breedText: {
+    fontSize: 25,
+    fontWeight: 600,
+  }
 })

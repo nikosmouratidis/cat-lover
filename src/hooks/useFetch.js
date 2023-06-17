@@ -34,7 +34,7 @@ const useFetch = (url) => {
       }
     })
 
-    // abort the fetch
+    // abort the fetch request on unmount
     return () => abortCont.abort()
   }, [url])
 
