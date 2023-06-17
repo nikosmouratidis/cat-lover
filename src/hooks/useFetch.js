@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { getDataAPI } from '../util/api'
 
 const useFetch = (url) => {
   const [data, setData] = useState(null)
@@ -6,36 +7,31 @@ const useFetch = (url) => {
   const [error, setError] = useState(null)
 
   useEffect(() => {
-    const abortCont = new AbortController()
-
-    fetch(url, {
-      signal: abortCont.signal,
-      headers: {
-        'x-api-key': 'live_c5h73a38fsKfnVc75LzSvHy5N8NtAwbJ9v1f68cLbUKhmtnYBIRFhWT8dfkVh8gy'
-      }
-    })
-    .then(res => {
-      if (!res.ok) { // error coming back from server
-        throw Error('Could not fetch the data for that resource')
-      }
-      return res.json()
-    })
-    .then(data => {
-      setIsPending(false)
-      setData(data)
-      setError(null)
-    })
-    .catch(err => {
-      if (err.name === 'AbortError') {
-        console.log('fetch aborted')
+    const abortController = new AbortController()
+    // The reason I don't move this declaration out of the useEffect is because
+    // it will have to be wrapped with useCallback and add it as a usEffect dependency.
+    // But that way on mount/unmount the instance of the abortController inside the getAsyncCatDetails
+    // will be different from the one called in useEffect's cleanup function.
+    const getAsyncCatDetails= async abortController => {
+      const response = await getDataAPI(url, abortController)
+      if (response instanceof Error) {
+        // When component unmounts before the request completes
+        if (response.name === 'AbortError') {
+          return null
+        }
+        setError(response.message)
       } else {
-        setIsPending(false)
-        setError(err.message)
+        setData(response)
       }
-    })
+      setIsPending(false)
+    }
+
+    getAsyncCatDetails(abortController)
 
     // abort the fetch request on unmount
-    return () => abortCont.abort()
+    return () => {
+      abortController.abort()
+    }
   }, [url])
 
   return { data, isPending, error }

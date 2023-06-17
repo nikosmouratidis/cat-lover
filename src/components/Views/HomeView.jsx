@@ -3,9 +3,10 @@ import { Link } from 'react-router-dom'
 import { useStyles } from './HomeView.styles'
 import useFetch from '../../hooks/useFetch'
 import CatImage from '../common/CatImage'
+import { SERVICE_API } from '../constants'
 
 const HomeView = () => {
-  const { data: cats, isPending, error} = useFetch('https://api.thecatapi.com/v1/images/search/?limit=10')
+  const { data: cats, isPending, error} = useFetch(`${SERVICE_API}/images/search/?limit=10`)
 
   const classes = useStyles()
 

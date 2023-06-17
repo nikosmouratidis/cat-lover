@@ -3,7 +3,7 @@ import { createUseStyles } from 'react-jss'
 const commonStyles = {
   marginLeft: 16,
   textDecoration: 'none',
-  padding: 6,
+  padding: 10,
 }
 
 export const useStyles = createUseStyles({

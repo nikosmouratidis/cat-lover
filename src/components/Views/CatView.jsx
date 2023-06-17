@@ -1,45 +1,16 @@
-import { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 
 import { useStyles } from './CatView.styles'
 import CatImage from '../common/CatImage'
 import FavouriteButton from '../FavouriteButton'
-import { getDataAPI } from '../../util/api'
+import useFetch from '../../hooks/useFetch'
+import { SERVICE_API } from '../constants'
 
 const CatView = () => {
-  const [catDetails, setCatDetails] = useState(null)
-  const [isPending, setIsPending] = useState(true)
-  const [error, setError] = useState(null)
   const { id } = useParams()
   const classes = useStyles()
 
-  useEffect(() => {
-    const abortController = new AbortController()
-    // The reason I don't move this declaration out of the useEffect is because
-    // it will have to be wrapped with useCallback and add it as a usEffect dependency.
-    // But that way on mount/unmount the instance of the abortController inside the getAsyncCatDetails
-    // will be different from the one called in useEffect's cleanup function.
-    const getAsyncCatDetails= async abortController => {
-      const response = await getDataAPI(`https://api.thecatapi.com/v1/images/${id}`, abortController)
-      if (response instanceof Error) {
-        // When component unmounts before the request completes
-        if (response.name === 'AbortError') {
-          return null
-        }
-        setError(response.message)
-      } else {
-        setCatDetails(response)
-      }
-      setIsPending(false)
-    }
-
-    getAsyncCatDetails(abortController)
-
-    // abort the fetch request on unmount
-    return () => {
-      abortController.abort()
-    }
-  }, [id])
+  const { data: catDetails, isPending, error} = useFetch(`${SERVICE_API}/images/${id}`)
 
   if (isPending) {
     return <div>Loading...</div>

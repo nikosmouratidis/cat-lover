@@ -1,8 +1,10 @@
+import { API_KEY, SERVICE_API } from "../components/constants"
+
 export const getDataAPI = (url, abortController) => (
   fetch(url, {
       signal: abortController.signal,
       headers: {
-        'x-api-key': 'live_c5h73a38fsKfnVc75LzSvHy5N8NtAwbJ9v1f68cLbUKhmtnYBIRFhWT8dfkVh8gy'
+        'x-api-key': API_KEY
       }
     })
     .then(res => {
@@ -16,10 +18,10 @@ export const getDataAPI = (url, abortController) => (
 )
 
 export const getFavourites = abortController => (
-  fetch('https://api.thecatapi.com/v1/favourites', {
+  fetch(`${SERVICE_API}/favourites`, {
     signal: abortController.signal,
     headers: {
-      'x-api-key': 'live_c5h73a38fsKfnVc75LzSvHy5N8NtAwbJ9v1f68cLbUKhmtnYBIRFhWT8dfkVh8gy'
+      'x-api-key': API_KEY
     }
   })
   .then(res => {
@@ -33,10 +35,10 @@ export const getFavourites = abortController => (
 )
 
 export const deleteFavouriteAPI = favouriteId => (
-  fetch(`https://api.thecatapi.com/v1/favourites/${favouriteId}`, {
+  fetch(`${SERVICE_API}/favourites/${favouriteId}`, {
     method: 'DELETE',
     headers: {
-      'x-api-key': 'live_c5h73a38fsKfnVc75LzSvHy5N8NtAwbJ9v1f68cLbUKhmtnYBIRFhWT8dfkVh8gy'
+      'x-api-key': API_KEY
     },
   })
   .then(res => {
@@ -50,11 +52,11 @@ export const deleteFavouriteAPI = favouriteId => (
 )
 
 export const addFavouriteAPI = catId => (
-  fetch(`https://api.thecatapi.com/v1/favourites`, {
+  fetch(`${SERVICE_API}/favourites`, {
         method: 'POST',
         headers: {
-          "Content-Type": "application/json",
-          'x-api-key': 'live_c5h73a38fsKfnVc75LzSvHy5N8NtAwbJ9v1f68cLbUKhmtnYBIRFhWT8dfkVh8gy'
+          'Content-Type': 'application/json',
+          'x-api-key': API_KEY
         },
         body: JSON.stringify({ image_id: catId})
       })
