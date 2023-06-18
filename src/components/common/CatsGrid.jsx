@@ -14,15 +14,15 @@ const CatsGrid = ({ variant }) => {
   const classes = useStyles()
 
   if (isPending) {
-   return <div>Loading...</div>
+   return <div data-testid='loading'>Loading...</div>
   }
 
   if (error) {
-    return <div>{ error }</div>
+    return <div data-testid='error'>{ error }</div>
   }
 
   if (isFavourites && data.length === 0) {
-    return  <div>You have no favourites cats...</div>
+    return  <div data-testid='no-favourites'>You have no favourites cats...</div>
   }
 
   const cats = data.map(cat => isFavourites ? cat.image : cat)

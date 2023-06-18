@@ -8,6 +8,7 @@ const CatImage = ({ imgSrc, catId }) => {
 
   return (
     <img
+      data-testid={`img-${catId}`}
       key={catId}
       className={classes.catImage}
       src={imgSrc}
