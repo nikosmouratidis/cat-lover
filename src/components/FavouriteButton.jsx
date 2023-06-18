@@ -75,6 +75,7 @@ const FavouriteButton = ({ catId }) => {
         className={classes.favouriteButton}
         onClick={handleFavourite}
         disabled={isPending}
+        data-testid='favourite-button'
       >
         { favButtonMsg }
       </button>

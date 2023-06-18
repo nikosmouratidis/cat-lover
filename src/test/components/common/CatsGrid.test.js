@@ -1,9 +1,9 @@
 import { BrowserRouter } from 'react-router-dom'
 
 import { render, screen } from '@testing-library/react'
-import CatsGrid from '../../components/common/CatsGrid'
+import CatsGrid from '../../../components/common/CatsGrid'
 
-const api = require('../../util/api')
+const api = require('../../../util/api')
 
 describe('CatsGrid in home view', () => {
   const MockCatsGrid = () => (
