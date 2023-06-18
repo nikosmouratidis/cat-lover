@@ -1,4 +1,5 @@
 import { useState, useEffect, memo } from 'react'
+import PropTypes from 'prop-types'
 
 import { useStyles } from './FavouriteButton.styles'
 import { addFavouriteAPI, deleteFavouriteAPI, getFavourites } from '../util/api'
@@ -78,6 +79,10 @@ const FavouriteButton = ({ catId }) => {
         { favButtonMsg }
       </button>
   )
+}
+
+FavouriteButton.propTypes = {
+  catId: PropTypes.string
 }
 
 export default memo(FavouriteButton)

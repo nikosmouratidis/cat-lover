@@ -1,19 +1,25 @@
+import { memo } from 'react'
+import PropTypes from 'prop-types'
+
 import { useStyles } from './CatImage.styles'
 
-const CatImage = ({ cat }) => {
+const CatImage = ({ imgSrc, catId }) => {
   const classes = useStyles()
 
   return (
     <img
-      key={cat.id}
+      key={catId}
       className={classes.catImage}
-      src={cat.url}
-      alt={`id ${cat.id}`}
-      width={cat.width}
-      height={cat.height}
+      src={imgSrc}
+      alt={`id ${catId}`}
       loading="lazy"
     />
   )
 }
 
-export default CatImage
+CatImage.propTypes = {
+  imgSrc: PropTypes.string,
+  catId: PropTypes.string
+}
+
+export default memo(CatImage)

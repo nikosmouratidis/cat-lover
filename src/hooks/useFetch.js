@@ -15,7 +15,7 @@ const useFetch = (url) => {
     const getAsyncCatDetails= async abortController => {
       const response = await getDataAPI(url, abortController)
       if (response instanceof Error) {
-        // When component unmounts before the request completes
+        // When pending request aborts on unmount
         if (response.name === 'AbortError') {
           return null
         }

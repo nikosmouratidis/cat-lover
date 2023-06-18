@@ -24,7 +24,7 @@ const CatView = () => {
 
   return (
     <div className={classes.catView}>
-      <CatImage cat={catDetails} />
+      <CatImage catId={catDetails.id} imgSrc={catDetails.url} />
       <FavouriteButton catId={catDetails.id}/>
         {breeds.length > 0 &&
           <div className={classes.breedDetails}>
