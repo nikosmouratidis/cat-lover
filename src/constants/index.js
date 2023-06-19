@@ -1,0 +1,1 @@
+export const SERVICE_API = 'https://api.thecatapi.com/v1'

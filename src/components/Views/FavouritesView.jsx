@@ -1,4 +1,4 @@
-import CatsGrid from '../common/CatsGrid'
+import CatsGrid from '../common/CatsGrid/CatsGrid'
 
 const FavouritesView = () => <CatsGrid variant='favourites' />
 

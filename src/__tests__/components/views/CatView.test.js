@@ -1,7 +1,7 @@
 import { BrowserRouter } from 'react-router-dom'
 
 import { render, screen } from '@testing-library/react'
-import CatView from '../../../components/Views/CatView'
+import CatView from '../../../components/Views/CatView/CatView'
 
 const api = require('../../../util/api')
 

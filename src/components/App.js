@@ -1,10 +1,10 @@
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 
-import Navbar from './Navbar'
-import CatView from './Views/CatView'
+import Navbar from './Navbar/Navbar'
+import CatView from './Views/CatView/CatView'
 import HomeView from './Views/HomeView'
 import { useStyles } from './App.styles'
-import FavouritesView from './Views/FavourtiesVIew'
+import FavouritesView from './Views/FavouritesView'
 
 function App() {
   const classes = useStyles()

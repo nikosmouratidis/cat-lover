@@ -1,7 +1,7 @@
 import { BrowserRouter } from 'react-router-dom'
 
 import { render, screen } from '@testing-library/react'
-import CatsGrid from '../../../components/common/CatsGrid'
+import CatsGrid from '../../../components/common/CatsGrid/CatsGrid'
 
 const api = require('../../../util/api')
 

@@ -2,9 +2,9 @@ import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 
 import { useStyles } from './CatsGrid.styles'
-import useFetch from '../../hooks/useFetch'
-import CatImage from '../common/CatImage'
-import { SERVICE_API } from '../constants'
+import useFetch from '../../../hooks/useFetch'
+import CatImage from '../CatImage/CatImage'
+import { SERVICE_API } from '../../../constants'
 
 const CatsGrid = ({ variant }) => {
   const isFavourites = variant === 'favourites'

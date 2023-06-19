@@ -18,6 +18,7 @@ export const useStyles = createUseStyles({
   navbarHeader: {
     color: '#f1356d',
     fontSize: 25,
+    textDecoration: 'none',
   },
   navbarLinks: {
     marginLeft: 'auto'

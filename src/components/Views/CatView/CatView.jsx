@@ -1,10 +1,10 @@
 import { useParams } from 'react-router-dom'
 
 import { useStyles } from './CatView.styles'
-import CatImage from '../common/CatImage'
-import FavouriteButton from '../FavouriteButton'
-import useFetch from '../../hooks/useFetch'
-import { SERVICE_API } from '../constants'
+import CatImage from '../../common/CatImage/CatImage'
+import FavouriteButton from '../../FavouriteButton/FavouriteButton'
+import useFetch from '../../../hooks/useFetch'
+import { SERVICE_API } from '../../../constants'
 
 const CatView = () => {
   const { id } = useParams()

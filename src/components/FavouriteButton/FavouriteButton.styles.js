@@ -11,5 +11,6 @@ export const useStyles = createUseStyles({
     padding: 15,
     margin: [15, 0],
     textDecoration: 'none',
+    width: 220,
   },
 })

@@ -1,10 +1,10 @@
-import { API_KEY, SERVICE_API } from "../components/constants"
+import { SERVICE_API } from "../constants"
 
 export const getDataAPI = (url, abortController) => (
   fetch(url, {
       signal: abortController.signal,
       headers: {
-        'x-api-key': API_KEY
+        'x-api-key': process.env.REACT_APP_API_KEY
       }
     })
     .then(res => {
@@ -17,11 +17,11 @@ export const getDataAPI = (url, abortController) => (
     .catch(error => error)
 )
 
-export const getFavourites = abortController => (
-  fetch(`${SERVICE_API}/favourites`, {
+export const getFavouriteAPI = (catId, abortController) => (
+  fetch(`${SERVICE_API}/favourites?image_id=${catId}`, {
     signal: abortController.signal,
     headers: {
-      'x-api-key': API_KEY
+      'x-api-key': process.env.REACT_APP_API_KEY
     }
   })
   .then(res => {
@@ -38,7 +38,7 @@ export const deleteFavouriteAPI = favouriteId => (
   fetch(`${SERVICE_API}/favourites/${favouriteId}`, {
     method: 'DELETE',
     headers: {
-      'x-api-key': API_KEY
+      'x-api-key': process.env.REACT_APP_API_KEY
     },
   })
   .then(res => {
@@ -56,7 +56,7 @@ export const addFavouriteAPI = catId => (
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'x-api-key': API_KEY
+          'x-api-key': process.env.REACT_APP_API_KEY
         },
         body: JSON.stringify({ image_id: catId})
       })
