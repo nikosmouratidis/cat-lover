@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import PropTypes from 'prop-types'
 
 import { useStyles } from './CatsGrid.styles'
@@ -7,6 +7,7 @@ import CatImage from '../CatImage/CatImage'
 import { SERVICE_API } from '../../../constants'
 
 const CatsGrid = ({ variant }) => {
+  const location = useLocation()
   const isFavourites = variant === 'favourites'
   const url = isFavourites ? `${SERVICE_API}/favourites` : `${SERVICE_API}/images/search/?limit=10`
   const { data = [], isPending, error} = useFetch(url)
@@ -32,6 +33,7 @@ const CatsGrid = ({ variant }) => {
       {cats.map(cat => (
           <Link
             to={`/cat/${cat.id}`}
+            state={{ background: location }}
             key={`${cat.id}-link`}
           >
             <CatImage catId={cat.id} imgSrc={cat.url} />
