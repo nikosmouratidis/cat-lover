@@ -27,7 +27,7 @@ In the Favourites page you can see all the cats that are added to you favourites
 
 ### Features not implemented for time reasons
 
-#### Breed list page
+### Breed list page
 
 I believe if I had more time I could implement this page.
 
