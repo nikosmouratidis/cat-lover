@@ -1,70 +1,40 @@
-# Getting Started with Create React App
+# Cat Lover React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project has 3 diferrent pages and one common Navbar.
 
-## Available Scripts
+### Navbar
 
-In the project directory, you can run:
+It has two buttons. The home button redirects you to the home page and the favourite butoon redirect you to the favourites page.
+Also clicking the header redirects you to the home page.
 
-### `npm start`
+### Home page
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+In the homepage 10 random cat images are rendered.
+Clicking on an image the url changes and a modal opens with the cat details while in the background home page is displayed.
+In the modal you can see the cat image, the breed details if they are available and also a button which adds/remove the cat from your favourites.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### Favourites page
 
-### `npm test`
+In the Favourites page you can see all the cats that are added to you favourites and if you want to remove one, you can click the cat image where a modal opens with the cat details (favourites page displayed on the background) and click the `Remove from favourites` button.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Developer notes
 
-### `npm run build`
+### Libraries used for the project
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- "react-scripts"
+- "react-router-dom"
+- "react-jss"
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### Features not implemented for time reasons
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+#### Breed list page
 
-### `npm run eject`
+I believe if I had more time I could implement this page.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### Load more images button on the home page.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Again due to time restrictions I coudn't implement it.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+### Remove from favourites page
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+I should definitely implement a better UX option about removing a favourite. Probably a small "heart" shaped button on the top left on every image and by clicking remove the cat id from the local state and also trigger the delete request. But in that case I am not sure how I should handle cases like delete request failed etc. and I would need more time to think the best approach.
