@@ -13,7 +13,7 @@ const CatView = () => {
   const { data: catDetails, isPending, error} = useFetch(`${SERVICE_API}/images/${id}`)
 
   if (isPending) {
-    return <div data-testid='loading' >Loading...</div>
+    return <div data-testid='loading'>Loading...</div>
    }
 
    if (error) {

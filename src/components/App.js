@@ -1,4 +1,4 @@
-import { Route, Routes, useLoaderData, useLocation } from 'react-router-dom'
+import { Route, Routes, useLocation } from 'react-router-dom'
 
 import Navbar from './Navbar/Navbar'
 import CatView from './Views/CatView/CatView'

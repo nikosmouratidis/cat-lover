@@ -2,8 +2,8 @@ import { createUseStyles } from 'react-jss'
 
 export const useStyles = createUseStyles({
   catView: {
-    height: '50%',
-    width: '50%',
+    height: '100%',
+    width: '100%',
     margin: 'auto',
   },
   breedDetails: {
