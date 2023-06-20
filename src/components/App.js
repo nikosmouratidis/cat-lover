@@ -5,7 +5,7 @@ import CatView from './Views/CatView/CatView'
 import HomeView from './Views/HomeView'
 import { useStyles } from './App.styles'
 import FavouritesView from './Views/FavouritesView'
-import Modal from './Modal'
+import Modal from './Modal/Modal'
 
 function App() {
   const classes = useStyles()

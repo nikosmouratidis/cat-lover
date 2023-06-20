@@ -9,9 +9,7 @@ const Modal = ({ children }) => {
     <div className={classes.modalWrapper}>
       <div className={classes.modal}>
         <button onClick={() => navigate(-1)} className={classes.closeButton}> X </button>
-        <div className={classes.modalContent}>
           {children}
-        </div>
       </div>
     </div>
   )

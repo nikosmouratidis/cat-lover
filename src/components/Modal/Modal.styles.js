@@ -7,7 +7,7 @@ export const useStyles = createUseStyles({
     position: 'fixed',
     top: 0,
     left: 0,
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    backgroundColor: 'rgba(0, 0, 0, 0.6)',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
@@ -23,6 +23,9 @@ export const useStyles = createUseStyles({
     overflow: 'auto',
     padding: 15,
     position: 'relative',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   closeButton: {
     position: 'absolute',
@@ -33,9 +36,6 @@ export const useStyles = createUseStyles({
     padding: [7, 10],
     cursor: 'pointer',
     borderRadius: 17,
-    color: 'white'
+    color: 'white',
   },
-  modalContent: {
-
-  }
 })

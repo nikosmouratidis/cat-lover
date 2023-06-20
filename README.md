@@ -30,10 +30,6 @@ In the Favourites page you can see all the cats that are added to you favourites
 
 ### Features not implemented for time reasons
 
-#### Cat details in a modal
-
-There is a branch with the name `feature/cat-lover-with-modal` in which clicking a cat image from home or favourites page a modal is rendered with the cat details and a favourite button. But unfortunately there are some ui issues while loading the image and the css style is a bit random. For that reason I left that branch and didn't merge it to the master.
-
 #### Breed list page
 
 I believe if I had more time I could implement also this page.
