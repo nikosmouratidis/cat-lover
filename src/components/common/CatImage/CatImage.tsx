@@ -1,9 +1,13 @@
-import { memo } from 'react'
-import PropTypes from 'prop-types'
+import React, { memo } from 'react'
 
 import { useStyles } from './CatImage.styles'
 
-const CatImage = ({ imgSrc, catId }) => {
+type Props = {
+  imgSrc: string,
+  catId: string
+}
+
+const CatImage: React.FC<Props> = ({ imgSrc, catId }) => {
   const classes = useStyles()
 
   return (
@@ -16,11 +20,6 @@ const CatImage = ({ imgSrc, catId }) => {
       loading="lazy"
     />
   )
-}
-
-CatImage.propTypes = {
-  imgSrc: PropTypes.string,
-  catId: PropTypes.string
 }
 
 export default memo(CatImage)

@@ -1,10 +1,14 @@
 import { useState, useEffect } from 'react'
 import { getDataAPI } from '../util/api'
 
-const useFetch = (url) => {
-  const [data, setData] = useState(null)
-  const [isPending, setIsPending] = useState(true)
-  const [error, setError] = useState(null)
+function useFetch<T>(url: string): {
+  data: T | null,
+  isPending: boolean,
+  error: string
+}  {
+  const [data, setData] = useState<T|null>(null)
+  const [isPending, setIsPending] = useState<boolean>(true)
+  const [error, setError] = useState<string>('')
 
   useEffect(() => {
     const abortController = new AbortController()
@@ -12,11 +16,11 @@ const useFetch = (url) => {
     // it will have to be wrapped with useCallback and add it as a usEffect dependency.
     // But that way on mount/unmount the instance of the abortController inside the getAsyncCatDetails
     // will be different from the one called in useEffect's cleanup function.
-    const getAsyncCatDetails= async abortController => {
+    const getAsyncCatDetails = async (abortController: AbortController) => {
       const response = await getDataAPI(url, abortController)
       if (response instanceof Error) {
         // When pending request aborts on unmount
-        if (response.name === 'AbortError') {
+        if (response.name === "AbortError") {
           return null
         }
         setError(response.message)

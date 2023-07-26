@@ -1,13 +1,18 @@
-import { useState, useEffect, memo } from 'react'
-import PropTypes from 'prop-types'
+import React, { useState, useEffect, memo } from 'react'
 
 import { useStyles } from './FavouriteButton.styles'
-import { addFavouriteAPI, deleteFavouriteAPI, getFavouriteAPI } from '../../util/api'
+import { addFavouriteAPI, deleteFavouriteAPI, getDataAPI } from '../../util/api'
+import { SERVICE_API } from '../../constants'
+import { TFavouriteData } from '../../@types'
 
-const FavouriteButton = ({ catId }) => {
-  const [favourite, setFavourite] = useState(null)
-  const [isPending, setIsPending] = useState(true)
-  const [error, setError] = useState(null)
+type Props = {
+  catId: string
+}
+
+const FavouriteButton: React.FC<Props> = ({ catId }) => {
+  const [favourite, setFavourite] = useState<TFavouriteData|null>(null)
+  const [isPending, setIsPending] = useState<boolean>(true)
+  const [error, setError] = useState<string>('')
 
   const classes = useStyles()
 
@@ -20,8 +25,9 @@ const FavouriteButton = ({ catId }) => {
     // it will need to be wrapped with useCallback. The problem is
     // that wrapped with useCallback the instance of the abortController
     // will be different from the one inside useEffect
-    const getAsyncFavourites = async abortGetFavourites => {
-      const response = await getFavouriteAPI(catId, abortGetFavourites)
+    const getAsyncFavourites = async (abortGetFavourites: AbortController) => {
+      // const response = await getDataAPI(catId, abortGetFavourites)
+      const response = await getDataAPI(`${SERVICE_API}/favourites?image_id=${catId}`, abortGetFavourites)
       if (response instanceof Error) {
         // When component unmounts before the request completes
         if (response.name === 'AbortError') {
@@ -40,6 +46,10 @@ const FavouriteButton = ({ catId }) => {
     return () => abortGetFavourites.abort()
   }, [catId])
 
+  if (error) {
+    return null
+  }
+
   const addFavourite = async () => {
     setIsPending(true)
     const response = await addFavouriteAPI(catId)
@@ -49,13 +59,12 @@ const FavouriteButton = ({ catId }) => {
     } else if (response.message === 'SUCCESS') {
       setFavourite(response)
     } else {
-      setError(new Error('Service could not add to favourite'))
+      setError('Service could not add to favourite')
     }
     setIsPending(false)
   }
 
-  const deleteFavourite = async () => {
-
+  const deleteFavourite = async (favourite: TFavouriteData) => {
     setIsPending(true)
     const response = await deleteFavouriteAPI(favourite.id)
     if (response instanceof Error) {
@@ -63,16 +72,12 @@ const FavouriteButton = ({ catId }) => {
     } else if (response.message === 'SUCCESS') {
       setFavourite(null)
     } else {
-      setError(new Error('Service could not delete from favourite'))
+      setError('Service could not delete from favourite')
     }
     setIsPending(false)
   }
 
-   if (error) {
-    return null
-   }
-
-   const favButtonMsg = isPending
+  const favButtonMsg = isPending
     ? 'Loading'
     : favourite
       ? 'Remove from favourites'
@@ -81,17 +86,13 @@ const FavouriteButton = ({ catId }) => {
   return (
     <button
         className={classes.favouriteButton}
-        onClick={() => favourite ? deleteFavourite() : addFavourite()}
+        onClick={() => favourite ? deleteFavourite(favourite) : addFavourite()}
         disabled={isPending}
         data-testid='favourite-button'
       >
         { favButtonMsg }
       </button>
   )
-}
-
-FavouriteButton.propTypes = {
-  catId: PropTypes.string
 }
 
 export default memo(FavouriteButton)

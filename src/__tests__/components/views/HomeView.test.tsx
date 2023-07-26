@@ -1,39 +1,36 @@
+import React from 'react'
 import { BrowserRouter } from 'react-router-dom'
-
 import { render, screen } from '@testing-library/react'
-import CatView from '../../../components/Views/CatView/CatView'
+
+import HomeView from '../../../components/Views/HomeView'
 
 const api = require('../../../util/api')
 
-describe('CatsGrid in home view', () => {
-  const MockCatView = () => (
+describe('Home view', () => {
+  const MockHomeView = () => (
     <BrowserRouter>
-      <CatView variant='home'/>
+      <HomeView />
     </BrowserRouter>
   )
 
-  test('should render an image with breed details', async () => {
-    jest.spyOn(api, 'getDataAPI').mockResolvedValue(
+  test('should render an image', async () => {
+    jest.spyOn(api, 'getDataAPI').mockResolvedValue([
       {
         id: 'MTk4MTU4Mw',
         url: 'https://cdn2.thecatapi.com/images/MTk4MTU4Mw.jpg',
-        breeds:[{ name: 'Singapore', id: 'sing'}]
       },
-    )
-    render(<MockCatView />)
+    ])
+    render(<MockHomeView />)
 
     screen.getByTestId('loading')
 
     await screen.findByTestId('img-MTk4MTU4Mw')
-    await screen.findByTestId('breed-sing')
   })
 
-  test('should render an error', async () => {
+  test('should render error', async () => {
     jest.spyOn(api, 'getDataAPI').mockResolvedValue(new Error('Something went wrong'))
-
-    render(<MockCatView />)
+    render(<MockHomeView />)
 
     await screen.findByTestId('error')
   })
-
 })
