@@ -1,8 +1,9 @@
+import React from 'react'
 import { Link } from 'react-router-dom'
 
 import { useStyles } from './Navbar.styles'
 
-const Navbar = () => {
+const Navbar: React.FC = () => {
   const classes = useStyles()
 
   return (

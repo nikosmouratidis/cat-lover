@@ -1,3 +1,4 @@
+import React from 'react'
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 
@@ -15,7 +16,7 @@ describe('FavouritesButton', () => {
   test('should render favouriteButton with message Add as a favourite and after clicking the message should change to Add', async () => {
     const user = userEvent
 
-    jest.spyOn(api, 'getFavouriteAPI').mockResolvedValue([])
+    jest.spyOn(api, 'getDataAPI').mockResolvedValue([])
 
     render(<FavouriteButton catId='MTk4MTU4Mw' />)
 
@@ -31,7 +32,7 @@ describe('FavouritesButton', () => {
   test('should render favouriteButton with message Remove from favourites and after clicking the message should change to Add', async () => {
     const user = userEvent
 
-    jest.spyOn(api, 'getFavouriteAPI').mockResolvedValue([{
+    jest.spyOn(api, 'getDataAPI').mockResolvedValue([{
       image_id: 'MTk4MTU4Mw'
     }])
 

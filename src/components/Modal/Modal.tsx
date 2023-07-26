@@ -1,7 +1,8 @@
+import React, { PropsWithChildren } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useStyles } from './Modal.styles'
 
-const Modal = ({ children }) => {
+const Modal: React.FC<PropsWithChildren> = ({ children }) => {
   const navigate = useNavigate()
   const classes = useStyles()
 
